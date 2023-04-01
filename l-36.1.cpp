@@ -4,27 +4,26 @@ using namespace std;
 int partition(int arr[],int s,int e){
 	int pivot=arr[s];//taking the pivot element
 	int count=0;
-	for(int i=s+1;i<e;i++){
-		if(arr[i]<pivot)
+	for(int i=s+1;i<=e;i++){
+		if(arr[i]<=pivot)
 		count++;
 	}
 	int pivotindex=s+count;//getting the actual pivot index
-	swap(arr[s],arr[pivotindex]);//putting the pivot element in right place
+	swap(arr[pivotindex],arr[s]);//putting the pivot element in right place
 	
 	//checking ki left element<pivot hai
 	//checking ki right element>pivot hai
 	
 	int i=s,j=e;
-	while(arr[i]<arr[pivotindex] && arr[j]>arr[pivotindex]){
-		if(arr[i]<arr[pivotindex]){
+	while(i<pivotindex && j>pivotindex){
+		while(arr[i]<pivot){
 			i++;
 		}
-		else if(arr[j]>arr[pivotindex]){
+		while(arr[j]>pivot){
 			j--;
 		}
-		else{
-			swap(arr[i],arr[j]);
-			i++;j--;
+		if(i<pivotindex && j>pivotindex){
+			swap(arr[i++],arr[j--]);
 		}
 	}
 	return pivotindex;
@@ -32,9 +31,9 @@ int partition(int arr[],int s,int e){
 }
 void quicksort(int arr[],int s,int e){
 	//base case
-	if(s>=e){
+	if(s>=e)
 		return ;
-	}
+	
 	//partition
 	int p=partition(arr,s,e);
 	
@@ -45,10 +44,10 @@ void quicksort(int arr[],int s,int e){
 	
 }
 int main(){
-	int arr[5]={3,1,4,2,5};
-	int size=5;
+	int arr[]={10,80,30,90,40,50,70};
+	int size=7;
 	
-    quicksort(arr,0,size);
+    quicksort(arr,0,size-1);
     //calling the quicksort function
     for(int i=0;i<size;i++){
     	cout<<arr[i]<<" ";
